@@ -19,6 +19,16 @@ app.get('/tianqi', function(req, res){
     })
   })
 })
+app.get('/games', function(req, res){
+  getHtml(function(tem, prec){
+    res.render('games');
+  })
+})
+app.get('/qiang', function(req, res){
+  getHtml(function(tem, prec){
+    res.render('qiang');
+  })
+})
 
 app.listen(port, function(){
   console.log('app listening!!');
