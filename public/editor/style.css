@@ -1,0 +1,45 @@
+body{
+    background: url(img/bg.jpg) repeat;
+}
+
+.title {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.title h1 {
+  text-align:center;
+  color: #e85a71;
+}
+
+.markdown-body {
+  padding: 20px;
+}
+
+.max-hei {
+  max-height: 600px;
+  overflow: auto;
+}
+
+.content {
+  position: relative;
+}
+
+.pull-7 {
+  position: absolute;
+  right: 40px;
+  top: 10px;
+}
+
+.shado{
+  border-radius: 6px;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  -o-box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.content-full {
+  margin-top: 15px;
+}
