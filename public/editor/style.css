@@ -43,3 +43,7 @@ body{
 .content-full {
   margin-top: 15px;
 }
+
+.col-xs-12 {
+  padding-bottom: 20px;
+}

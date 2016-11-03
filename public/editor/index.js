@@ -1,7 +1,4 @@
-let _input = 
-`
-# demo
-`
+var _input = "# demo"
 
 var demo = new Vue({
   el: '#editor',
