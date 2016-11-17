@@ -3,11 +3,25 @@ const app = express();
 const path = require('path');
 const http = require('http');
 const cheerio = require('cheerio');
+const bodyParser = require('body-parser')
+const mySets = require('./mysettings')
+
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  service: 'QQ', // no need to set host or port etc.
+  auth: {
+    user: mySets.qqMailUser,
+    pass: mySets.qqMailPass
+  }
+});
 
 port = 80;
+var a = "";
 
 app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }))  
+app.use(bodyParser.json()) 
 
 app.get('/', function(req, res){
   res.render('index');
@@ -20,14 +34,51 @@ app.get('/tianqi', function(req, res){
   })
 })
 app.get('/games', function(req, res){
-  getHtml(function(tem, prec){
     res.render('games');
-  })
 })
 app.get('/qiang', function(req, res){
-  getHtml(function(tem, prec){
     res.render('qiang');
-  })
+})
+app.get('/fuwu', function(req, res){
+  res.render('fuwu');
+})
+app.post('/copy', function(req, res){
+  a += req.body.content + "<br/>"
+  res.send(a);
+})
+app.post('/mail', function(req, res){
+  // setup e-mail data with unicode symbols
+  var mailto = req.body.to;
+  var mailsubject = req.body.subject;
+  var mailtext = req.body.text;
+  var mailhtml = req.body.html;
+  // check key
+  var key = req.body.key;
+  const CORRECTKEY = "ubuntu";
+  if(key !== CORRECTKEY){
+    res.send('error: 0');
+  }
+  else if(!mailto&&!mailsubject){
+    res.send('error: 1');
+  }
+  else{
+    var mailOptions = {
+        from: mySets.defaultMailFrom, // sender address
+        to: mailto, // list of receivers
+        subject: mailsubject, // Subject line
+        text: mailtext, // plaintext body
+        html: mailhtml // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        // console.log('Message sent: ' + info.response);
+        res.send('ok: 1');
+    });
+  }
 })
 
 app.listen(port, function(){
@@ -47,3 +98,5 @@ function getHtml(cb){
       console.log("Got error: " + e.message);  
   });
 }
+
+
