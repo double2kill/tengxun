@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 });
 
 port = 80;
-var a = "";
+var _contents = [];
 
 app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,11 +40,13 @@ app.get('/qiang', function(req, res){
     res.render('qiang');
 })
 app.get('/fuwu', function(req, res){
-  res.render('fuwu');
+  res.render('fuwu', {
+    contents: _contents
+  });
 })
 app.post('/copy', function(req, res){
-  a += req.body.content + "<br/>"
-  res.send(a);
+  _contents.unshift(req.body.content);
+  res.redirect("/fuwu");
 })
 app.post('/mail', function(req, res){
   // setup e-mail data with unicode symbols

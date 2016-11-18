@@ -27,3 +27,5 @@ block content
     form(action="copy", method="post")
       input(type="text", name="content")
       button(type="submit") 提交
+      each item in contents
+        li #{item}
